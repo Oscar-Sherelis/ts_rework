@@ -2,15 +2,16 @@
   "name": "users",
   "version": "0.1.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
     "start": "webpack-dev-server --mode development --hot",
     "build": "npm run clean && webpack --mode production",
-    "lint": "eslint ./app/index.ts"
+    "lint": "eslint ./app/index.js"
   },
   "author": "Marcin Wanago <marcin@wanago.io> (https://wanago.io)",
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "css-loader": "1.0.0",
     "eslint": "5.3.0",
     "eslint-loader": "^2.0.0",
@@ -19,6 +20,8 @@
     "node-sass": "4.9.3",
     "sass-loader": "7.1.0",
     "style-loader": "0.22.1",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.2",
     "url-loader": "^1.1.0",
     "webpack": "4.16.5",
     "webpack-cli": "3.1.0",
@@ -26,6 +29,7 @@
   },
   "dependencies": {
     " -bs4": "^1.10.20",
+    "@types/jquery": "^3.3.31",
     "bootstrap": "^4.3.1",
     "datatables.net": "^1.10.20",
     "datatables.net-bs4": "^1.10.20",
@@ -34,6 +38,7 @@
     "datatables.net-dt": "^1.10.20",
     "datatables.net-jqui": "^1.10.20",
     "datatables.net-zf": "^1.10.20",
+    "jQuery": "^1.7.4",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0"
   }

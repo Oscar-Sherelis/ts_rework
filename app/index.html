@@ -12,6 +12,7 @@
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
+      crossorigin="anonymous"
     />
   </head>
   <body>
@@ -26,36 +27,6 @@
       <tbody></tbody>
     </table>
     <div class="heading-wrapper">
-      <table
-        class="table table-striped table-bordered mydatatable"
-      >
-        <thead>
-          <tr>
-            <th>Company name</th>
-            <th>Number of workers</th>
-            <th>Workers</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      </script>
-          <script>
-                //set timeout was working *** after loaded all data load dataTable and it will make asc sort by number of workers
-                setTimeout(function() {
-                  var headID = document.getElementsByTagName("head")[0];
-          
-                  var propper = document.createElement("script");
-                  propper.type = "text/javascript";
-                  propper.src =
-                    "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js";
-
-                  headID.appendChild(propper);
-          
-                  $(".mydatatable").DataTable({
-                    order: [[1, "asc"]]
-                  });
-                }, 65000);
-              </script>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

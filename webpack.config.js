@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    bundle: './app/index.js'
+    bundle: './app/index.ts'
   },
   output: {
     filename: '[name].[hash].js',
@@ -11,6 +11,9 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/
+      },
       {
         test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/
       },
@@ -38,6 +41,9 @@ module.exports = {
         ]
       }
     ],
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ],
   },
   devtool: 'eval-source-map',
   plugins: [
