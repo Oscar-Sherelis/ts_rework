@@ -1,5 +1,6 @@
 import './styles/styles.scss';
 import 'DataTables.net';
+import { users, ccompanies } from '../services/fetch'
 
 window.onload = () => {
   work(result);
@@ -59,10 +60,12 @@ async function work(result: Array<any>) {
 
   const companies = await fetch('http://localhost:3000/companies');
   let companyResponse = await companies.json();
+  // console.log(companyResponse)
   
   const users = await fetch('http://localhost:3000/users');
   let userResponse = await users.json();
 
+  console.log(users)
   companyResponse.forEach((company: any) => {
 
     result[company.name] = [];
