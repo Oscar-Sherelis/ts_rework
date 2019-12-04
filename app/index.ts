@@ -6,13 +6,13 @@ window.onload = () => {
 };
 
 
-function addTd(tr: any, tdValue: any) {
+function addTd(tr: HTMLDivElement, tdValue: string) {
   let td = document.createElement('td');
   td.append(tdValue);
   tr.append(td);
 }
 
-function addUser(result: Array<any>, userObject: any, td3: any) {
+function addUser(result: Array<Object>, userObject: any, td3: HTMLDivElement) {
   result.push({
     name: userObject.name,
     email: userObject.email
@@ -63,7 +63,7 @@ async function work(result: Array<any>) {
   const users = await fetch('http://localhost:3000/users');
   let userResponse = await users.json();
 
-  companyResponse.forEach( (company: any) => {
+  companyResponse.forEach((company: any) => {
 
     result[company.name] = [];
     let tr = document.createElement('tr');
@@ -72,7 +72,7 @@ async function work(result: Array<any>) {
     // add first td = 'company_name'
     addTd(tr, company.name);
 
-    userResponse.forEach( (user: any) => {
+    userResponse.forEach((user: any) => {
       if (company.uri === user.uris.company) {
         // add third td workers data
         addUser(result[company.name], user, td3);
