@@ -1,5 +1,6 @@
 import './styles/styles.scss';
 import 'DataTables.net';
+import { users, companies } from './services/fetch'
 
 window.onload = () => {
   loadData(result);
@@ -16,7 +17,6 @@ function addUser(result: Array<Object>, userObject: {name: number, email: string
     name: userObject.name,
     email: userObject.email
   });
-  console.log(typeof userObject.name)
 
   let p = document.createElement('p');
   p.append(userObject.name + ' ' + userObject.email);
@@ -59,14 +59,9 @@ let result: Array<Object | number> = [];
 async function loadData(result: Array<any>) {
   let tbody = document.querySelector('tbody');
 
-  const companies = await fetch('http://localhost:3000/companies');
-  let companyResponse = await companies.json();
-  // console.log(companyResponse)
-  
-  const users = await fetch('http://localhost:3000/users');
-  let userResponse = await users.json();
+  let companyResponse = await (await companies).json();
+  let userResponse = await (await users).json();
 
-  console.log(users)
   companyResponse.forEach((company: {name: string, uri: string}) => {
 
     result[parseInt(company.name)] = [];
