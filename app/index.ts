@@ -1,23 +1,22 @@
 import './styles/styles.scss';
 import 'DataTables.net';
-import { users, ccompanies } from '../services/fetch'
 
 window.onload = () => {
-  work(result);
+  loadData(result);
 };
 
-
-function addTd(tr: HTMLDivElement, tdValue: string) {
+function addTd(tr: HTMLDivElement, tdValue: any) {
   let td = document.createElement('td');
   td.append(tdValue);
   tr.append(td);
 }
 
-function addUser(result: Array<Object>, userObject: any, td3: HTMLDivElement) {
+function addUser(result: Array<Object>, userObject: {name: number, email: string}, td3: HTMLDivElement) {
   result.push({
     name: userObject.name,
     email: userObject.email
   });
+  console.log(typeof userObject.name)
 
   let p = document.createElement('p');
   p.append(userObject.name + ' ' + userObject.email);
@@ -53,9 +52,11 @@ async function sortData() {
   }
 }
 
-let result: Array<any> = [];
+let result: Array<Object | number> = [];
 
-async function work(result: Array<any>) {
+// https://stackoverflow.com/questions/50351381/property-length-does-not-exist-on-type-object/50352162
+// without any length not works
+async function loadData(result: Array<any>) {
   let tbody = document.querySelector('tbody');
 
   const companies = await fetch('http://localhost:3000/companies');
@@ -66,24 +67,24 @@ async function work(result: Array<any>) {
   let userResponse = await users.json();
 
   console.log(users)
-  companyResponse.forEach((company: any) => {
+  companyResponse.forEach((company: {name: string, uri: string}) => {
 
-    result[company.name] = [];
+    result[parseInt(company.name)] = [];
     let tr = document.createElement('tr');
     let td3 = document.createElement('td');
 
     // add first td = 'company_name'
     addTd(tr, company.name);
 
-    userResponse.forEach((user: any) => {
+    userResponse.forEach((user: { uris: { company: string}, name: number, email: string}) => {
       if (company.uri === user.uris.company) {
         // add third td workers data
-        addUser(result[company.name], user, td3);
+        addUser(result[parseInt(company.name)], user, td3);
       }
     });
 
     // add second td number of workers
-    addTd(tr, result[company.name].length);
+    addTd(tr, result[parseInt(company.name)].length);
     tr.append(td3);
     tbody.append(tr);
   });
