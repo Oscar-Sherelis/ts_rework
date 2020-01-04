@@ -1,5 +1,10 @@
 import './styles/styles.scss';
 import 'DataTables.net';
+// import {Observable} from "rxjs"
+// import {Observable} from 'rxjs/Observable'
+// import 'rxjs/add/Observable'
+import { Observable, interval } from 'rxjs'
+import { tap, take} from 'rxjs/operators'
 import { users, companies } from './services/fetch'
 
 window.onload = () => {
@@ -23,7 +28,7 @@ function addUser(result: Array<Object>, userObject: {name: number, email: string
   td3.append(p);
 }
 
-async function sortData() {
+function sortData() {
   try {
     let headID = document.getElementsByTagName('head')[0];
 
@@ -54,7 +59,6 @@ async function sortData() {
 
 let result: Array<Object | number> = [];
 
-// https://stackoverflow.com/questions/50351381/property-length-does-not-exist-on-type-object/50352162
 // without any length not works
 async function loadData(result: Array<any>) {
   let tbody = document.querySelector('tbody');
@@ -62,6 +66,12 @@ async function loadData(result: Array<any>) {
   let companyResponse = await (await companies).json();
   let userResponse = await (await users).json();
 
+  const stream$ = interval(500)
+  .pipe(
+    tap((v: any) => { console.log(v)}),
+    take(5)
+  )
+  stream$.subscribe((val: any) => { console.log(val) })
   companyResponse.forEach((company: {name: string, uri: string}) => {
 
     result[parseInt(company.name)] = [];
